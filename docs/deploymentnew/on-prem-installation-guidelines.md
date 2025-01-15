@@ -134,94 +134,14 @@ helm repo add mosip https://mosip.github.io/mosip-helm
 A Wireguard bastion host (Wireguard server) provides secure private channel to access MOSIP cluster. The host restricts public access, and enables access to only those clients who have their public key listed in Wireguard server. Wireguard listens on UDP port51820.
 
 #### Setup Wireguard VM and wireguard bastion server
-
-* Create a Wireguard server VM with above mentioned Hardware and Network requirements.
-* Open ports and Install docker on Wireguard VM.
-  * cd $K8\_ROOT/wireguard/
-  *   create copy of `hosts.ini.sample` as `hosts.ini` and update the required details for wireguard VM\\
-
-      `cp hosts.ini.sample hosts.ini`
-  *   execute ports.yml to enable ports on VM level using ufw:
-
-      `ansible-playbook -i hosts.ini ports.yaml`
-
-> Note: 
->  *  Permission of the pem files to access nodes should have 400 permission. `sudo chmod 400 ~/.ssh/privkey.pem`
->  *  These ports are only needed to be opened for sharing packets over UDP.
->  *  Take necessary measure on firewall level so that the Wireguard server can be reachable on 51820/udp.
-
-```
-* execute docker.yml to install docker and add user to docker group:
-
-    `ansible-playbook -i hosts.ini docker.yaml`
-    
-```
-
-*   Setup Wireguard server
-
-    * SSH to wireguard VM
-    * Create directory for storing wireguard config files.\
-      `mkdir -p wireguard/config`
-    * Install and start wireguard server using docker as given below:
-
-    ```
-    sudo docker run -d \
-    --name=wireguard \
-    --cap-add=NET_ADMIN \
-    --cap-add=SYS_MODULE \
-    -e PUID=1000 \
-    -e PGID=1000 \
-    -e TZ=Asia/Calcutta \
-    -e PEERS=30 \
-    -p 51820:51820/udp \
-    -v /home/ubuntu/wireguard/config:/config \
-    -v /lib/modules:/lib/modules \
-    --sysctl="net.ipv4.conf.all.src_valid_mark=1" \
-    --restart unless-stopped \
-    ghcr.io/linuxserver/wireguard
-    ```
-
-> Note:
-
->  *  Increase the no. of peers above in case more than 30 wireguard client confs (-e PEERS=30) are needed.  
->  *  Change the directory to be mounted to wireguard docker as per need. All your wireguard confs will be generated in the mounted directory (`-v /home/ubuntu/wireguard/config:/config`).
-
-#### Setup Wireguard Client in your PC
-
-* Install Wireguard client in your PC.
-* Assign `wireguard.conf`:
-  * SSH to the wireguard server VM.
-  * `cd /home/ubuntu/wireguard/config`
-  *   assign one of the PR for yourself and use the same from the PC to connect to the server.
-
-      * create `assigned.txt` file to assign the keep track of peer files allocated and update everytime some peer is allocated to someone.
-
-      ```
-      peer1 :   peername
-      peer2 :   xyz
-      ```
-
-      * use `ls` cmd to see the list of peers.
-      * get inside your selected peer directory, and add mentioned changes in `peer.conf`:
-        * `cd peer1`
-        * `nano peer1.conf`
-          * Delete the DNS IP.
-          * Update the allowed IP's to subnets CIDR ip . e.g. 10.10.20.0/23
-        * Share the updated `peer.conf` with respective peer to connect to wireguard server from Personel PC.
-* add `peer.conf` in your PC’s `/etc/wireguard` directory as `wg0.conf`.
-* start the wireguard client and check the status:
-
-```
-sudo systemctl start wg-quick@wg0
-sudo systemctl status wg-quick@wg0
-```
-
-* Once connected to wireguard, you should be now able to login using private IP’s.
+  * Move to the directory in K8s-infra containing wireguard scripts:
+  ```
+  cd $K8_ROOT/wireguard/
+  ```
+  * Follow the [steps](https://github.com/mosip/k8s-infra/tree/develop/wireguard#setup-wireguard-bastion-server) to setup wireguard Bastion server along with wireguard client in your system and connect to continue with rest of deloyment.
 
 ## Observation K8s Cluster setup and configuration
-
-**Observation K8s Cluster setup**
-
+### Pre-requisites
 * Install all the required tools mentioned in pre-requisites for PC.
   * kubectl
   * helm
@@ -239,229 +159,38 @@ sudo systemctl status wg-quick@wg0
 > *  Make sure the permission for `privkey.pem` for ssh is set to 400.
 
 * Run `env-check-setup.yaml` to check if cluster nodes are fine and do not have known issues in it.
-  * cd $K8\_ROOT/rancher/on-prem
+  * `cd $K8_ROOT/k8-cluster/on-prem/rke1/`
   * create copy of `hosts.ini.sample` as `hosts.ini` and update the required details for Observation k8 cluster nodes.
     * `cp hosts.ini.sample hosts.ini`
     * `ansible-playbook -i hosts.ini env-check-setup.yaml`
     * This ansible checks if localhost mapping is already present in /etc/hosts file in all cluster nodes, if not it adds the same.
-* Open ports and install docker on Observation K8 Cluster node VM’s.
-  * `cd $K8_ROOT/rancher/on-prem`
-  * Ensure that `hosts.ini` is updated with nodal details.
-  * Update vpc\_ip variable in `ports.yaml` with vpc CIDR ip to allow access only from machines inside same vpc.
-  * Execute `ports.yml` to enable ports on VM level using ufw:
-    * `ansible-playbook -i hosts.ini ports.yaml`
-  * Disable swap in cluster nodes. (Ignore if swap is already disabled)
-    * ansible-playbook -i hosts.ini swap.yaml
-  * execute `docker.yml` to install docker and add user to docker group:
-    * ansible-playbook -i hosts.ini docker.yaml
-* Creating RKE Cluster Configuration file
-  * `rke config`
-  *   Command will prompt for nodal details related to cluster, provide inputs w.r.t below mentioned points:
-
-      * `SSH Private Key Path` :
-      * `Number of Hosts`:
-      * `SSH Address of host` :
-      * `SSH User of host` :
-      *
-
-      ```
-      Is host (<node1-ip>) a Control Plane host (y/n)? [y]: y
-      Is host (<node1-ip>) a Worker host (y/n)? [n]: y
-      Is host (<node1-ip>) an etcd host (y/n)? [n]: y
-      ```
-
-      * Make all the nodes `Worker host` by default.
-      * To create an HA cluster, specify more than one host with role `Control Plane` and `etcd host`.
-  * `Network Plugin Type` : Continue with canal as default network plugin.
-  * For rest of other configurations, opt the required or default value.
-* As result of `rke config` command `cluster.yml` file will be generated inside same directory, update the below mentioned fields:
-  *   `nano cluster.yml`
-
-      * Remove the default Ingress install
-
-      ```
-      ingress:
-      provider: none
-      ```
-  * Add the name of the kubernetes cluster
-    * `cluster_name: sandbox-name`
-* For production deplopyments edit the `cluster.yml`, according to this [RKE Cluster Hardening Guide](https://github.com/mosip/k8s-infra/blob/v1.2.0.1-B1/docs/rke-cluster-hardening.md).
-*   Setup up the cluster:
-
-    *   Once `cluster.yml` is ready, you can bring up the kubernetes cluster using simple command.
-
-        * This command assumes the `cluster.yml` file is in the same directory as where you are running the command.
-        * `rke up`
-        *
-
-        ````
-        INFO[0000] Building Kubernetes cluster
-        INFO[0000] [dialer] Setup tunnel for host [10.0.0.1]
-        INFO[0000] [network] Deploying port listener containers   
-        INFO[0000] [network] Pulling image [alpine:latest] on host [10.0.0.1]
-        ...
-        INFO[0101] Finished building Kubernetes cluster successfully
-        ```
-        * The last line should read `Finished building Kubernetes cluster` successfully to indicate that your cluster is ready to use.
-        ````
-    * As part of the Kubernetes creation process, a `kubeconfig` file has been created and written at `kube_config_cluster.yml`, which can be used to start interacting with your Kubernetes cluster.
-    * Copy the kubeconfig files
-
-    ```
-    cp kube_config_cluster.yml $HOME/.kube/<cluster_name>_config
-    chmod 400 $HOME/.kube/<cluster_name>_config
-    ```
-
-    * To access the cluster using `kubeconfig` file use any one of the below method:
-      * `cp $HOME/.kube/<cluster_name>_config $HOME/.kube/config`\
-        **Alternatively**
-      * `export KUBECONFIG="$HOME/.kube/<cluster_name>_config`
-    * Test cluster access:
-      * `kubectl get nodes`
-        * Command will result in details of the nodes of the Observation cluster.
-    * Save your files
-      * Save a copy of the following files in a secure location, they are needed to maintain, troubleshoot and upgrade your cluster.
-        * `cluster.yml`: The RKE cluster configuration file.
-        * `kube_config_cluster.yml`: The [Kubeconfig file](https://rancher.com/docs/rke/latest/en/kubeconfig/) for the cluster, this file contains credentials for full access to the cluster.
-        * `cluster.rkestate`: The [Kubernetes Cluster State file](https://rancher.com/docs/rke/latest/en/installation/#kubernetes-cluster-state), this file contains credentials for full access to the cluster.
-
-## Observation K8s Cluster Ingress and Storage class setup
-
-Once the rancher cluster is ready, we need ingress and storage class to be set for other applications to be installed.
-
-* [Nginx Ingress Controller](https://kubernetes.github.io/ingress-nginx/deploy/): used for ingress in rancher cluster.
-
-```
-cd $K8_ROOT/mosip/on-prem
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm repo update
-helm install \                                                                                                             
-  ingress-nginx ingress-nginx/ingress-nginx \
-  --namespace ingress-nginx \
-  --version 4.0.18 \
-  --create-namespace  \
-  -f ingress-nginx.values.yaml
-```
-
-this will install ingress in ingress-nginx namespace of rancher cluster.
-
-## Storage classes
-The following storage classes can be used:
-* [Vsphere storage class](https://github.com/vmware-archive/vsphere-storage-for-kubernetes): If you are already using VMware virtual machines, you can proceed with the vSphere storage class.
-* [ceph-csi](https://github.com/mosip/k8s-infra/blob/main/ceph/README.md)
-* [Longhorn](https://github.com/mosip/k8s-infra/blob/v1.2.0.1/longhorn/README.md)
-* [NFS client provisioner storage class](https://github.com/mosip/k8s-infra/blob/v1.2.0.1/mosip/nfs/README.md).
-* MOSIP using NFS as a staorage class for Reference architecture
-  * [NFS client provisioner storage class](https://github.com/mosip/k8s-infra/blob/v1.2.0.1/mosip/nfs/README.md).
-
+### Observation plane K8 cluster creation
+* Use any of the ways mentioned [here](https://github.com/mosip/k8s-infra/blob/develop/k8-cluster/on-prem/README.md) for k8 cluster creation.
+* Preferred way with respect to this sandbox installation will be RKE2 as it is easy to setup and manage as compared to RKE1.
+* `cd $K8_ROOT/k8-cluster/on-prem/rke2/ansible`
+* Follow the [steps](https://github.com/mosip/k8s-infra/blob/develop/k8-cluster/on-prem/rke2/ansible/README.md) to setup k8 cluster using preffered way i.e. RKE2 using ansible automation.
+### Observation K8s Cluster Ingress and Storage class setup
+* Deploy Ingress using mentioned [steps](https://github.com/mosip/k8s-infra/tree/develop/ingress/ingress-nginx#deploy-as-nodeport) from below directory:
+  ```
+  cd $K8_ROOT/ingress/ingress-nginx
+  ```
+* Setup Storage class for observation cluster using any of the mentioned [ways](https://github.com/mosip/k8s-infra/tree/develop/storage-class).
+* Recommendsation to use [NFS](https://github.com/mosip/k8s-infra/tree/develop/storage-class/nfs#readme) as storage class for this sandox consideration from below directory.
+  ```
+  cd $K8_ROOT/storage-class/nfs/
+  ```
 
 ### Setting up nginx server for Observation K8s Cluster
-
-* For Nginx server setup we need ssl certificate, add the same into Nginx server.
-*   Incase valid ssl certificate is not there generate one using letsencrypt:
-
-    * SSH into the nginx server
-    * Install Pre-requisites
-
-    ```
-    sudo apt update -y
-    sudo apt-get install software-properties-common -y
-    sudo add-apt-repository ppa:deadsnakes/ppa
-    sudo apt-get update -y
-    sudo apt-get install python3.8 -y
-    sudo apt install letsencrypt -y
-    sudo apt install certbot python3-certbot-nginx -y
-    ```
-*   Generate wildcard SSL certificates for your domain name.
-
-    * `sudo certbot certonly --agree-tos --manual --preferred-challenges=dns -d *.org.net`
-      * replace `org.net` with your domain.
-      * The default challenge HTTP is changed to DNS challenge, as we require wildcard certificates.
-      * Create a DNS record in your DNS service of type TXT with host `_acme-challenge.org.net`, with the string prompted by the script.
-      * Wait for a few minutes for the above entry to get into effect.
-
-    **Verify**:
-
-    `host -t TXT _acme-challenge.org.net`
-
-    * Press enter in the `certbot` prompt to proceed.
-    * Certificates are created in `/etc/letsencrypt` on your machine.
-    * Certificates created are valid for 3 months only.
-* Wildcard SSL certificate [renewal](https://github.com/mosip/k8s-infra/blob/v1.2.0.1/docs/wildcard-ssl-certs-letsencrypt.md#ssl-certificate-renewal). This will increase the validity of the certificate for next 3 months.
-*   Clone [k8s-infra](https://github.com/mosip/k8s-infra)
-
-    ```
-    cd $K8_ROOT/rancher/on-prem/nginx
-    sudo ./install.sh
-    ```
-* Provide below mentioned inputs as and when promted
-  * Rancher nginx ip : internal ip of the nginx server VM.
-  * SSL cert path : path of the ssl certificate to be used for ssl termination.
-  * SSL key path : path of the ssl key to be used for ssl termination.
-  * Cluster node ip's : ip’s of the rancher cluster node
-*   Post installation check:
-
-    * `sudo systemctl status nginx`
-    * Steps to Uninstall nginx (in case required)
-
-    `sudo apt purge nginx nginx-common`
-
-    DNS mapping: Once nginx server is installed sucessfully, create DNS mapping for rancher cluster related domains as mentioned in DNS requirement section. (rancher.org.net, keycloak.org.net)
-
-## Observation K8's Cluster Apps Installation
-
-### Rancher UI
-* Rancher provides full CRUD capability of creating and managing kubernetes cluster.
-* Install rancher using Helm, update `hostname` in `rancher-values.yaml` and run the following command to install.
-
-```
-cd $K8_ROOT/rancher/rancher-ui
-helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
-helm repo update
-helm install rancher rancher-latest/rancher \
---namespace cattle-system \
---create-namespace \
--f rancher-values.yaml
-```
-
-*   Login:
-
-    * Open [Rancher](https://rancher.org.net) page.
-    * Get Bootstrap password using
-
-    ```
-    kubectl get secret --namespace cattle-system bootstrap-secret -o go-template='{{ .data.bootstrapPassword|base64decode}}{{ "\n" }}'
-    ```
-
-    Assign a password. IMPORTANT: makes sure this password is securely saved and retrievable by Admin.
-### Keycloak 
-* [Keycloak]((https://www.keycloak.org/)) is an OAuth 2.0 compliant Identity Access Management (IAM) system used to manage the access to Rancher for cluster controls.
-```
-cd $K8_ROOT/rancher/keycloak
-./install.sh <iam.host.name>
-```
-
-`keycloak_client.json`: Used to create SAML client on Keycloak for Rancher integration.
-
-### Keycloak - Rancher UI Integration
-
-* Login as `admin` user in Keycloak and make sure an email id, and first name field is populated for admin user. This is important for Rancher authentication as given below.
-* Enable authentication with Keycloak using the steps given [here](https://ranchermanager.docs.rancher.com/v2.6/how-to-guides/new-user-guides/authentication-permissions-and-global-configuration/authentication-config/configure-keycloak-saml).
-* In Keycloak add another Mapper for the rancher client (in Master realm) with following fields:
-  * Protocol: saml
-  * Name: username
-  * Mapper Type: User Property
-  * Property: username
-  * Friendly Name: username
-  * SAML Attribute Name: username
-  * SAML Attribute NameFormat: Basic
-  * Specify the following mappings in Rancher's Authentication Keycloak form:
-    * Display Name Field: givenName
-    * User Name Field: email
-    * UID Field: username
-    * Entity ID Field: https://your-rancher-domain/v1-saml/keycloak/saml/metadata
-    * Rancher API Host: https://your-rancher-domain
-    * Groups Field: member
+* Setup Nginx server for exposing services by Observation K8 cluster using mentioned [steps](https://github.com/mosip/k8s-infra/tree/develop/nginx/observation#readme) from below mentioned directory.
+  ```
+  cd $K8_ROOT/nginx/observation
+  ```
+### Observation K8's Cluster Apps Installation
+* Rancher UI : Follow the [instructions](https://github.com/mosip/k8s-infra/blob/develop/apps/rancher-ui/README.md) to setup Rancher UI in Observation k8 cluster from below mentioned directory:
+  ```
+  cd $K8_ROOT/apps/rancher-ui
+  ```
+* Keycloak and Integration with Rancher UI: Follow the [instructions](https://github.com/mosip/k8s-infra/tree/develop/apps/keycloak#readme) to install keycloak as IAM tool followed by Rancher UI integration.
 
 ### RBAC for Rancher using Keycloak
 
@@ -480,11 +209,6 @@ cd $K8_ROOT/rancher/keycloak
 * Creating a Keycloak group involves the following steps:
   * Go to the "Groups" section in Keycloak and create groups with default roles.
   * Navigate to the "Users" section in Keycloak, select a user, and then go to the "Groups" tab. From the list of groups, add the user to the required group.
-            
-
-**Certificates expiry**
-
-In case you see certificate expiry message while adding users, on **local** cluster run these commands:
 
 ## MOSIP K8s Cluster setup
 
@@ -515,91 +239,20 @@ helm repo add mosip https://mosip.github.io/mosip-helm
   * SSH into the node to check password-less SSH
     * `ssh -i ~/.ssh/<your private key> <remote-user>@<remote-ip>`
   * Rancher UI : (deployed in Rancher K8 cluster)
-* Open ports and Install docker on MOSIP K8 Cluster node VM’s.
-  * `cd $K8_ROOT/mosip/on-prem`
-  * create copy of `hosts.ini.sample` as `hosts.ini` and update the required details for wireguard VM.
-    * `cp hosts.ini.sample hosts.ini`
-  * Update `vpc_ip` variable in `ports.yaml` with `vpc CIDR ip` to allow access only from machines inside same vpc.
-  * execute `ports.yml` to enable ports on VM level using ufw:
-    * `ansible-playbook -i hosts.ini ports.yaml`
-  * Disable swap in cluster nodes. (Ignore if swap is already disabled)
-    * ansible-playbook -i hosts.ini swap.yaml
-  * execute `docker.yml` to install docker and add user to docker group:
-    * ansible-playbook -i hosts.ini docker.yaml
-* Creating RKE Cluster Configuration file
-  * rke config
-  *   Command will prompt for nodal details related to cluster, provide inputs w.r.t below mentioned points:
 
-      * `SSH Private Key Path` :
-      * `Number of Hosts`:
-      * `SSH Address of host` :
-      * `SSH User of host` :
 
-      ```
-      Is host (<node1-ip>) a Control Plane host (y/n)? [y]: y
-      Is host (<node1-ip>) a Worker host (y/n)? [n]: y
-      Is host (<node1-ip>) an etcd host (y/n)? [n]: y
-      ```
 
-      * Make all the nodes Worker `host` by default.
-      * To create an HA cluster, specify more than one host with role `Control Plane` and `etcd host`.
-  * `Network Plugin Type` : Continue with canal as default network plugin.
-  * For rest for other configuration opt the required or default value.
-*   As result of rke config command `cluster.ymlfile` will be generated inside same directory, update the below mentioned fields:
 
-    * `nano cluster.yml`
-    * Remove the default Ingress install
 
-    ```
-    ingress:
-    provider: none
-    ```
 
-    * Add the name of the kubernetes cluster
 
-    ```
-    `cluster_name: sandbox-name`
-    ```
 
-    * For production deplopyments edit the `cluster.yml`, according to this [RKE Cluster Hardening Guide](https://github.com/mosip/k8s-infra/blob/v1.2.0.1-B1/docs/rke-cluster-hardening.md).
-* Setup up the cluster:
-  * Once `cluster.yml` is ready, you can bring up the kubernetes cluster using simple command.
-    *   This command assumes the `cluster.yml` file is in the same directory as where you are running the command.
 
-        * rke up
 
-        ```
-        INFO[0000] Building Kubernetes cluster
-        INFO[0000] [dialer] Setup tunnel for host [10.0.0.1]
-        INFO[0000] [network] Deploying port listener containers
-        INFO[0000] [network] Pulling image [alpine:latest] on host [10.0.0.1]
-        ...
-        INFO[0101] Finished building Kubernetes cluster successfully
-        ```
-    * The last line should read `Finished building Kubernetes cluster successfully` to indicate that your cluster is ready to use.
-    *   Copy the kubeconfig files
 
-        ```
-        cp kube_config_cluster.yml $HOME/.kube/<cluster_name>_config
-        chmod 400 $HOME/.kube/<cluster_name>_config
-        ```
-  * To access the cluster using kubeconfig filr use any one of the below method:
-  * `cp $HOME/.kube/<cluster_name>_config $HOME/.kube/config`
+##TODO from here onwards
 
-**Alternatively**
 
-```
-* `export KUBECONFIG="$HOME/.kube/<cluster_name>_config`
-```
-
-* Test cluster access:
-  * `kubect get nodes`
-  * Command will result in details of the nodes of the rancher cluster.
-* Save Your files
-  * Save a copy of the following files in a secure location, they are needed to maintain, troubleshoot and upgrade your cluster.:
-    * `cluster.yml`: The RKE cluster configuration file.
-    * `kube_config_cluster.yml`: The [Kubeconfig file](https://rke.docs.rancher.com/kubeconfig) for the cluster, this file contains credentials for full access to the cluster.
-    * `cluster.rkestate`: The [Kubernetes Cluster State file](https://rke.docs.rancher.com/installation#kubernetes-cluster-state), this file contains credentials for full access to the cluster.
 
 ### MOSIP K8 Cluster Global configmap, Ingress and Storage Class setup
 
