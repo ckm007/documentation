@@ -1,64 +1,41 @@
 # eSignet and Dependencies Deployment in Kubernetes cluster
-
 ## Overview
-
-eSignet and its dependent services are deployed as microservices within a Kubernetes (K8s) cluster. This architecture leverages [Wireguard](https://www.wireguard.com/) for establishing a secure, trusted network extension to access the observation plane and privately accessible backend services.
-
-Nginx is utilized by eSignet for the following purposes:
-
-  * SSL termination: Handles SSL/TLS encryption and decryption to secure client-server communication.
-  * Reverse Proxy: Acts as an intermediary to forward client requests to backend servers
-  * CDN/Cache management: Optimizes content delivery and improves response times by caching resources.
-  * Loadbalancing: Distributes incoming traffic across multiple servers to ensure high availability and performance.
-
-
-The Kubernetes cluster is created and managed using [Rancher](https://rancher.com/docs/rancher/v1.3/en/kubernetes/#rancher-ui) and [rke](https://www.rancher.com/products/rke) tools.
-
-In the reference implementation (ref-impl) of the eSignet deployment, two Kubernetes clusters are required to ensure optimal security and scalability:
-
-
-## 1. One K8 cluster for observation plane:
-
-This cluster is part of the observation plane, facilitating administrative tasks. It is intentionally kept independent of the primary cluster for enhanced security and clear segregation of roles and responsibilities.
-
-### Key Characteristics:
-
-* Isolation: Designed to remain internal and inaccessible to the external world as a best practice.
-* Administrative Services: This cluster hosts critical services required for cluster management and monitoring.
-
-### Components in the Observation Plane Cluster:
-
-* Rancher: Used to manage the eSignet cluster.
-* Keycloak: Provides user access management for the cluster.
-* Monitoring: Log and network monitoring should be configured to ensure visibility and security.
-* Container Registry (if applicable): An internal container registry can be hosted here for managing container images.
-
-## 2. One K8 cluster for eSignet and its dependent services deployment:
-
-This cluster runs all the eSignet and its dependent components and certain third party components to secure the cluster, API’s and data.
-
-### Key Features:
-
-* Comprehensive Deployment: All eSignet-related services and pre-requisites are deployed in this cluster.
-* Cluster Security: Includes tools and configurations to secure the cluster environment.
-
-
-### Components in the eSignet Cluster:
-
-1. Cluster Configuration Tools:
-
-* Istio (Service Mesh)
-* NFS CSI (Container Storage Interface)
-* Monitoring and Logging tools (e.g., Prometheus, Grafana, Fluentd).
-
-2. eSignet Pre-Requisite Services: Services required for the initial setup and functioning of eSignet.
-3. eSignet and Dependent Services: Core eSignet microservices and their dependencies.
-
-
+* This guide provides comprehensive instructions for eSignet deployment.
+* eSignet operates as a collection of microservices hosted within Kubernetes clusters to ensure scalability, modularity, and high availability.
+* The deployment process includes the following key components and configurations:
+  * [Wireguard](https://www.wireguard.com/) is used as a trust network extension to access the admin, control, and observation pane along with on-field registration client connectivity to backend server.
+  * eSignet uses [Nginx](https://www.nginx.com/) server for:
+    * SSL termination
+    * Reverse Proxy
+    * CDN/Cache management
+    * Loadbalancing
+  * Kubernetes (K8s) cluster creation, configuration and administration of same.
+    * K8 cluster is created using the [Rancher](https://rancher.com/docs/rancher/v1.3/en/kubernetes/#rancher-ui) and [rke](https://www.rancher.com/products/rke) tools.
+    * K8 cluster essentially used in ref-impl architecture:
+      * Observation K8 cluster
+      * eSignet application K8 cluster  
+    * Setting up ingress for exposing application services outside K8 cluster.
+    * Setting up storage class used as persistence in the K8 cluster.
+    * Setting up Logging system to continously scrape logs out of all the pods as per need.
+    * Setting up Monitoring to continously monitor logs and multiple graphs to be able to manage application and cluster better.
+    * Setting alerting to make sure users are identified about crucial events as and when needed.
+  * **Observation K8** cluster contains:
+    * Rancher Ui : application used to create manage k8 cluster. This is needed once for an organisation as it can manage multiple dev, qa and prod k8 cluster easily.
+    * Kecloak : IAM tool used for defining RBAC policies for allowing access to Rancher.
+  * **eSignet cluster** : This cluster runs all the eSignet components and certain third party components to secure the cluster, API’s and data.
+    * eSignet Pre-requisites: are set of services required to deploy Multiple eSignet modules:
+      * eSignet-prerequisites : Servicess required for `esignet-service` and `oidc-ui` deployment.
+      * eSignet-mock-prerequisites : Servicess required for `mock-relying-party` and `mock-relying-party-ui` deployment.
+      * eSignet-signup : Services required for `esignet-signup-service` and `esignet-signup-ui` deployment.
+    * eSignet Services deployment :
+      * `esignet-service` and `oidc-ui` deployment.
+      * Onboarding MISP partner for eSignet service.
+      * `mock-relying-party-service` and `mock-relying-party-ui` deployment.
+      * Onboarding `mock-relying-party`.
+      * `esignet-signup-service` and `esignet-signup-ui` deployment.
+      * Onboarding MISP partner for `esignet-signup-partner`.
 ## Architecture [TODO]
-
 Architecture Diagram to be updated.
-
 
 ## Deployment Repos
 * [k8s-infra](https://github.com/mosip/k8s-infra/tree/v1.2.0.1) : contains the scripts to install and configure Kubernetes cluster with required monitoring, logging and alerting tools.
@@ -76,18 +53,12 @@ Architecture Diagram to be updated.
   * eSignet signup services.
   * eSignet signup onboarding pre-requisites.
   * eSignet signup onboarding.
-
-
 ## Pre-requisites:
-
 Ensure all required hardware and software dependencies are prepared before proceeding with the installation.
-
 ### Hardware requirements:
-
 * Virtual Machines (VMs) can use any operating system as per convenience.
 * For this installation guide, Ubuntu OS is referenced throughout.
-
-
+  
 | Sl no. | Purpose                                                 | vCPU's | RAM   | Storage (HDD) | no. of VM's | HA                               |
 | ------ | ------------------------------------------------------- | ------ | ----- | ------------- | ---------- | -------------------------------- |
 | 1.     | Wireguard Bastion Host                                  | 2      | 4 GB  | 8 GB          | 1          | (ensure to setup active-passive) |
@@ -98,12 +69,10 @@ Ensure all required hardware and software dependencies are prepared before proce
 
 
 ### Network Requirements:
-
 * All the VM's should be able to communicate with each other.
 * Need stable Intra network connectivity between these VM's.
 * All the VM's should have stable internet connectivity for docker image download (in case of local setup ensure to have a locally accessible docker registry).
 * Server Interface requirement as mentioned in below table:
-
 
 | Sl no. | Purpose                  | Network Interfaces                                                                                                                                                                                                                                                                               |
 | ------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -131,22 +100,14 @@ Ensure all required hardware and software dependencies are prepared before proce
 | 13. | smtp.sandbox.xyz.net         | Private IP of Nginx server for MOSIP cluster                        | Accessing mock-smtp UI over wireguard                                                                                                                                                                                                                 |
 
 ### Certificate requirements:
-
 As only secured https connections are allowed via nginx server will need below mentioned valid ssl certificates:
 * One valid wildcard ssl certificate related to domain used for accessing Observation cluster, this needs to be stored inside the nginx server VM for Observation cluster. In above e.g.: \*.org.net is the similiar example domain.
 * One valid wildcard ssl certificate related to domain used for accesing eSignet K8 cluster, this needs to be stored inside the nginx server VM for eSignet cluster. In above e.g.: \*.sandbox.xyz.net is the similiar example domain.
-
 ### Tools to be installed on Personal Computers:
-
 Follow the steps mentioned [here](https://github.com/mosip/k8s-infra/tree/v1.2.0.2/mosip/on-prem#prerequisites) to install the required tools in you personel computer to create and manage k8 cluster using RKE1.
-
-
 ## Installation:
-
 Step-by-step guide to set up and configure the required components for secure and efficient operations.
-
 ### Wireguard:
-
 Secure access solution that establishes private channels to Observation and eSignet clusters.
 
 _If you already have a Wireguard bastion host then you may skip this step._
@@ -205,67 +166,45 @@ _If you already have a Wireguard bastion host then you may skip this step._
     --sysctl="net.ipv4.conf.all.src_valid_mark=1" \
     --restart unless-stopped \
     ghcr.io/linuxserver/wireguard
-    ```
-    
+    ```    
 > Note:
 >  *  Increase the no. of peers above in case more than 30 wireguard client confs (-e PEERS=30) are needed.  
 >  *  Change the directory to be mounted to wireguard docker as per need. All your wireguard confs will be generated in the mounted directory (`-v /home/ubuntu/wireguard/config:/config`).
-
-
 ### Setup Wireguard Client in your PC and follow the below steps:
-
-
 1. Install [Wireguard client](https://www.wireguard.com/install/) in your PC.
-
 2. Assign `wireguard.conf`:
-
 * SSH to the wireguard server VM.
 * `cd /home/ubuntu/wireguard/config`
 *  Assign one of the PR for yourself and use the same from the PC to connect to the server.
-      
   * Create `assigned.txt` file to assign the keep track of peer files allocated and update everytime some peer is allocated to someone.
-
     ```sh
     peer1 :   peername
     peer2 :   xyz
     ```
-
   * Use `ls` cmd to see the list of peers.
   * Get inside your selected peer directory, and add mentioned changes in `peer.conf`:
-
     * `cd peer1`
     * `nano peer1.conf`
-
         * Delete the DNS IP.
         * Update the allowed IP's to subnets CIDR ip . e.g. 10.10.20.0/23
-
   * Share the updated `peer.conf` with respective peer to connect to wireguard server from Personel PC.
   * Add `peer.conf` in your PC’s `/etc/wireguard` directory as `wg0.conf`.
-
 3. Start the wireguard client and check the status:
-
 ```sh
 sudo systemctl start wg-quick@wg0
 sudo systemctl status wg-quick@wg0
 ```
-
 4. Once connected to wireguard, you should be now able to login using private IP’s.
-
-
 ## Observation cluster setup and configuration
-
 ### Observation K8s Cluster setup:
-
 1. Install all the required tools mentioned in pre-requisites for PC.
   * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl).
   * [helm](https://helm.sh/docs/intro/install/).
   * [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
   * rke (version 1.3.10)
   * istioctl (version v1.15.0)
-
 2. Setup Observation Cluster node VM’s as per the hardware and network requirements as mentioned above.
 3. Setup passwordless SSH into the cluster nodes via pem keys. (Ignore if VM’s are accessible via pem’s).
-
     *  Generate keys on your PC
        `ssh-keygen -t rsa`
     *  Copy the keys to remote observation node VM’s
@@ -284,13 +223,10 @@ sudo systemctl status wg-quick@wg0
 6. Once Observation K8 cluster is created and configured setup nginx server for same using [steps](https://docs.mosip.io/1.2.0/deploymentnew/v3-installation/on-prem-installation-guidelines#setting-up-nginx-server-for-observation-k8s-cluster).
 
 7. Once Nginx server for observation plave is done continue with [installation of required apps:](https://docs.mosip.io/1.2.0/deploymentnew/v3-installation/on-prem-installation-guidelines#observation-k8s-cluster-apps-installation).
-
   * Install Keycloak.
   * Install Rancher UI.
   * keycloak & Rancher UI Integration.
-
 ## eSignet K8 Cluster setup:
-
 1. Setup [pre-requisites](https://github.com/mosip/k8s-infra/tree/v1.2.0.2/mosip/on-prem#prerequisites) in your personel computer.
 2. Clone the Kubernetes Infrastructure Repository:
 
@@ -306,80 +242,44 @@ cd k8s-infra/mosip/onprem
 5. Install [Docker](https://github.com/mosip/k8s-infra/tree/v1.2.0.2/mosip/on-prem#docker) on all the required VM's.
 6. Create [RKE1 K8](https://github.com/mosip/k8s-infra/tree/v1.2.0.2/mosip/on-prem#rke-cluster-setup) cluster for eSignet services hosting.
 7. [Import](https://github.com/mosip/k8s-infra/tree/v1.2.0.2/mosip/on-prem#register-the-cluster-with-rancher) newly created K8 cluster to Rancher UI.
-
-
 ## eSignet K8 Cluster Configuration:
-
 * Setup [NFS](https://github.com/mosip/k8s-infra/tree/v1.2.0.2/nfs#nfs-setup) for persistence in k8 cluster as well as standalone VM (Nginx VM).
 * Setup [Monitoring](https://github.com/mosip/k8s-infra/tree/v1.2.0.2/monitoring#cluster-monitoring) for K8 cluster Monitoring.
 * Setup [Logging](https://github.com/mosip/k8s-infra/tree/v1.2.0.2/logging#logging) for K8 cluster.
 * Setup [Istio](https://github.com/mosip/k8s-infra/tree/v1.2.0.2/mosip/on-prem/istio#istio) and kiali.
-
-
 ## Nginx for eSignet K8 Cluster:
-
-
 1. Setup [Nginx](https://github.com/mosip/k8s-infra/tree/v1.2.0.2/mosip/on-prem/nginx) for exposing services from newly created eSignet K8 cluster.
-
-
 ## Install eSignet and pre-requisite servivces:
-
-
 2. Clone the eSignet repository: (select tag based upon the compatibility matrix)
-
 ```sh
 git clone -b <tag> https://github.com/mosip/esignet.git
 cd esignet
 ```
-
 3. Install [pre-requisites](https://github.com/mosip/esignet/blob/release-1.5.x/deploy/README.md#install-pre-requisites) for eSignet from deploy directory.
-
 ```sh
 cd deploy
 ```
-
 ## follow pre-requisites deployment steps:
-
-
 1. [Initialiase pre-requisites](https://github.com/mosip/esignet/blob/release-1.5.x/deploy/README.md#initialise-pre-requisites) for eSignet services.
 2. Install eSignet and OIDC [services](https://github.com/mosip/esignet/blob/release-1.5.x/deploy/README.md#install-esignet-and-oidc).
 3. [Onboard](https://github.com/mosip/esignet/blob/release-1.5.x/deploy/README.md#onboarder) eSignet as per the plugin used for deployment.
 4. Setup [api-testrig](https://github.com/mosip/esignet/tree/release-1.5.x/deploy/esignet-apitestrig#install) for detailed automated testcase execution.
-
-
 ## Install eSignet mock services:
-
-
 1. Clone the respective repo: (select tag based upon the compatibility matrix)
-
 ```sh
 git clone -b <tag> https://github.com/mosip/esignet-mock-services.git
 cd esignet-mock-services
 ```
-
-
 2. Install [pre-requisites](https://github.com/mosip/esignet-mock-services/tree/release-0.10.x?tab=readme-ov-file#install-pe-req-for-mock-services) for eSignet mock services.
-
 3. Install [eSignet mock](https://github.com/mosip/esignet-mock-services/tree/release-0.10.x?tab=readme-ov-file#install-esignet-mock-services) services.
-
 4. Onboard [esignet mock](https://github.com/mosip/esignet-mock-services/tree/release-0.10.x/partner-onboarder#partner-onboarder) services.
-
-
 ## Install eSignet signup and its pre-requisites services:
-
 1. Clone the respective repo: (select tag based upon the compatibility matrix)
-
-
 ```sh
 git clone -b <tag> https://github.com/mosip/esignet-signup.git
 cd esignet-signup
 ```
-
-
 2. Install [pre-requisites](https://github.com/mosip/esignet-signup/tree/release-1.1.x?tab=readme-ov-file#setup-pre-requisites-for-signup-services) for eSignet Signup services.
-
 3. Install [eSignet signup](https://github.com/mosip/esignet-signup/tree/release-1.1.x?tab=readme-ov-file#install-signup-service) services.
-
 4. Deploy dependencies for eSignet signup onboarder following [steps](https://github.com/mosip/esignet-signup/tree/release-1.1.x?tab=readme-ov-file#prerequisites-for-mosip-kernel-services).
-
 5. [Onboard](https://github.com/mosip/esignet-signup/tree/release-1.1.x/partner-onboarder#partner-onboarder) eSignet signup services.
