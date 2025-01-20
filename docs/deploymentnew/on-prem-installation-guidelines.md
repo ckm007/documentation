@@ -1,24 +1,44 @@
 # On-Prem Installation Guidelines
-
 ## Overview
+* This guide provides comprehensive instructions for on-premises MOSIP deployment.
+* MOSIP operates as a collection of microservices hosted within Kubernetes clusters to ensure scalability, modularity, and high availability.
+* The deployment process includes the following key components and configurations:
+  * [Wireguard](https://www.wireguard.com/) is used as a trust network extension to access the admin, control, and observation pane along with on-field registration client connectivity to backend server.
+  * MOSIP uses [Nginx](https://www.nginx.com/) server for:
+    * SSL termination
+    * Reverse Proxy
+    * CDN/Cache management
+    * Loadbalancing
+  * Kubernetes (K8s) cluster creation, configuration and administration of same.
+    * K8 cluster is created using the [Rancher](https://rancher.com/docs/rancher/v1.3/en/kubernetes/#rancher-ui) and [rke](https://www.rancher.com/products/rke) tools.
+    * K8 cluster essentially used in V3 ref-impl architecture:
+      * Observation K8 cluster
+      * MOSIP application K8 cluster  
+    * Setting up ingress for exposing application services outside K8 cluster.
+    * Setting up storage class used as persistence in the K8 cluster.
+    * Setting up Logging system to continously scrape logs out of all the pods as per need.
+    * Setting up Monitoring to continously monitor logs and multiple graphs to be able to manage application and cluster better.
+    * Setting alerting to make sure users are identified about crucial events as and when needed.
+  * Observation K8 cluster contains:
+    * Rancher Ui : application used to create manage k8 cluster. This is needed once for an organisation as it can manage multiple dev, qa and prod k8 cluster easily.
+    * Kecloak : IAM tool used for defining RBAC policies for allowing access to Rancher.
+  * MOSIP k8 cluster containes:
+    * Pre-requisite services: Services required to support MOSIP application deployment:
+      * HSM/SoftHSM : are cryptographic solutions used to securely manage and store cryptographic keys.
+      * Postgres : open-source, relational database management system (RDBMS) known for its robustness, extensibility, and compliance with SQL standards.
+      * Keycloak :  is an open-source Identity and Access Management (IAM) solution which provides authentication, authorization, and user management for modern applications and services.
+      * ActiveMq :  is an open-source message broker which facilitates communication between distributed systems using messaging protocols, enabling asynchronous communication and decoupling between producers and consumers.
+      * Kafka : is an open-source, distributed event streaming platform designed for high-throughput, fault-tolerant, and real-time data processing. It is widely used for building data pipelines, real-time analytics, and event-driven architectures.
+      * Object store : is a type of storage system designed to store, retrieve, and manage unstructured data as discrete units called objects. It is highly scalable and ideal for storing vast amounts of data like multimedia files, backups, logs, and more. Popular examples include Amazon S3, Google Cloud Storage, and MinIO.
+      * ABIS : (Automated Biometric Identification System) is a system designed to collect, store, and match biometric data for identification or verification purposes.
+      * BioSDK : provides the necessary tools to capture, process, and match biometric data. These SDKs typically support multiple biometric modalities, such as fingerprint, face, iris, voice, and more.
+      * Captcha : is a type of challenge-response test designed to determine whether the user is a human or a bot. It is used to prevent automated software from performing actions that could be harmful or disruptive, such as spamming, brute force attacks, or creating fake accounts.
+      * Msg-Gateway : platform that facilitates the transmission of messages between different communication channels or systems. It acts as a bridge, enabling communication across various messaging services or protocols, such as SMS, email, push notifications, or even custom messaging services.
+      * Landing page : is a standalone web-page create specifically for admin users to land them up to all the dashboards and UI's available as part of MOSIP.
+      * docker-registry secrets : used to pull docker images from private/local dockerhub/registry from k8s cluster.
+    * MOSIP Modules:
+      * 
 
-* MOSIP modules are deployed in the form of microservices in kubernetes cluster.
-* [Wireguard](https://www.wireguard.com/) is used as a trust network extension to access the admin, control, and observation pane.
-* It is also used for the on-the-field registrations.
-* MOSIP uses [Nginx](https://www.nginx.com/) server for:
-  * SSL termination
-  * Reverse Proxy
-  * CDN/Cache management
-  * Loadbalancing
-* Kubernetes cluster is administered using the [Rancher](https://rancher.com/docs/rancher/v1.3/en/kubernetes/#rancher-ui) and [rke](https://www.rancher.com/products/rke) tools.
-* In V3, we have two Kubernetes clusters:
-
-**Observation cluster** - This cluster is a part of the observation plane and it helps in administrative tasks. By design, this is kept independent of the actual cluster as a good security practice and to ensure clear segregation of roles and responsibilities. As a best practice, this cluster or it's services should be internal and should never be exposed to the external world.
-
-* [Rancher](https://rancher.com/docs/rancher/v1.3/en/kubernetes/#rancher-ui) is used for managing the MOSIP cluster.
-* [Keycloak](https://www.keycloak.org/) in this cluster is used for cluster user access management.
-* It is recommended to configure log monitoring and network monitoring in this cluster.
-* In case you have an internal container registry, then it should run here.
 
 **MOSIP cluster** - This cluster runs all the MOSIP components and certain third party components to secure the cluster, API’s and data.
 
