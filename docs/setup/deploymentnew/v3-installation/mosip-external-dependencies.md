@@ -33,7 +33,7 @@ cd $INFRA_ROOT/deployment/v3/external/postgres
 ./init_db.sh
 ```
 
-Opt for yes and enter **Y**.
+Opt for yes and enter **Y** to initialise with default masterdata.
 
 ### Keycloak
 
