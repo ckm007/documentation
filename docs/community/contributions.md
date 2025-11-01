@@ -1,3 +1,7 @@
+---
+icon: hands-holding-circle
+---
+
 # Contributions
 
 ## Overview
@@ -6,7 +10,7 @@ MOSIP is a product of the combined efforts of multiple stakeholders. Contributio
 
 ## [LTIMindtree Ltd](https://www.mindtree.com/)
 
-<div align="left"><figure><img src="../.gitbook/assets/LTIM.png" alt=""><figcaption></figcaption></figure></div>
+<div align="center"><figure><img src="../.gitbook/assets/community-contributor-ltmindtree.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
 MOSIP partnered with LTIMindtree in August 2018 and since then it has been a fruitful association in areas of engineering, architecture, devops to name a few. Mindtree has contributed, through secondment of engineering resources, approximately 2260 person days of engineering effort, which roughly translates to more than 21000 person hours of work on the MOSIP project.
 
@@ -14,7 +18,7 @@ MOSIP partnered with LTIMindtree in August 2018 and since then it has been a fru
 
 ## [Technoforte Software Private Limited](https://www.technoforte.co.in/)
 
-![](../.gitbook/assets/technoforte-logo.png)
+<div align="center"><figure><img src="../.gitbook/assets/community-contributor-technoforte.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
 The team at Technoforte has contributed multiple resources towards security testing, manual testing, automated testing, development, and devops. Technoforte has made significant contributions to the development of Partner Management Module, defining the partner policy, and setting up the partner portal. The team is also part of the community led effort of Android Reg Client development.
 
@@ -24,7 +28,7 @@ These valuable contributions were made by the Technoforte team with an approxima
 
 ## [Newlogic](https://newlogic.com/)
 
-![](../.gitbook/assets/newlogic-logo.png)
+<div align="center"><figure><img src="../.gitbook/assets/community-contributor-newlogic.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
 With its belief in the open source values and the transformative power of Digital Public Goods Newlogic has been partnering with MOSIP in building the next generation of digital government infrastructures.
 
@@ -40,7 +44,7 @@ Singapore based Newlogic is a software consultancy company providing innovative 
 
 ## [Thoughtworks](https://www.thoughtworks.com/)
 
-<div align="left"><figure><img src="../.gitbook/assets/thoughts.png" alt=""><figcaption></figcaption></figure></div>
+<div align="center"><figure><img src="../.gitbook/assets/community-contributor-thoughtworks.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
 In 2022, Thoughtworks partnered with MOSIP as an engineering ally, embarking on a significant journey together. Key milestone was the creation of Tuvali, a BLE layer adhering to OpenID4VP standards. An alternate to Google Nearby, Tuvali facilitates the exchange of verifiable IDs across wallets and devices even without internet connectivity. This innovation empowers governments to effectively provide efficient and monitored citizen services.
 
@@ -52,7 +56,7 @@ The organization has broadened its contributions to other essential components o
 
 ## [Infosys](https://www.infosys.com/)
 
-<div align="left"><figure><img src="../.gitbook/assets/infy.png" alt=""><figcaption></figcaption></figure></div>
+<div align="center"><figure><img src="../.gitbook/assets/community-contributor-infosys.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
 Infosys began collaborating with MOSIP in early 2023 as part of its Technology for good initiative. The company has been actively contributing to the development of the eSignet module, Android Registration Client, and other related modules. Through this pro bono collaboration, Infosys demonstrates its commitment to using technology for social good and empowering individuals with secure and reliable digital identities.
 
@@ -60,7 +64,7 @@ Infosys began collaborating with MOSIP in early 2023 as part of its Technology f
 
 ## [CyberPWN](https://cyberpwn.com/)
 
-<div align="left"><figure><img src="../.gitbook/assets/cyber.png" alt=""><figcaption></figcaption></figure></div>
+<div align="center"><figure><img src="../.gitbook/assets/community-contributor-cyberpwn.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
 In January 2020, CyberPWN partnered with IIIT Bangalore to offer development assistance for MOSIP. Presently, CyberPWN's product engineering team, consisting of 30+ engineers, actively contributes expertise in multiple areas of MOSIP, encompassing Architecture, Product Management, Product Development, Quality Assurance, DevSecOps, Security, and Biometrics.
 
@@ -68,19 +72,17 @@ In January 2020, CyberPWN partnered with IIIT Bangalore to offer development ass
 
 ## <mark style="color:blue;">GH Solutions Consultants</mark>
 
-
-
 <figure><img src="../.gitbook/assets/image005.png" alt=""><figcaption></figcaption></figure>
 
 GHSC has partnered with MOSIP in the critical area of security, making significant contributions to the Security Assurance Services, in collaboration with MOSIP’s core development team. This partnership plays a vital role in strengthening MOSIP’s security framework and ensuring robust protection across its ecosystem.
 
-**About GHSC**: GHSC is a renowned cybersecurity and compliance firm with a strong focus on serving the financial services and government sectors. Leveraging their extensive expertise, they have now expanded into the Digital Public Infrastructure (DPI) domain, actively engaging with several Digital Public Goods (DPGs). \
+**About GHSC**: GHSC is a renowned cybersecurity and compliance firm with a strong focus on serving the financial services and government sectors. Leveraging their extensive expertise, they have now expanded into the Digital Public Infrastructure (DPI) domain, actively engaging with several Digital Public Goods (DPGs).\
 \
 Their contribution to MOSIP highlights their commitment to driving innovation and delivering secure, scalable solutions for emerging global needs.
 
 ## [Students @ IIIT Bangalore](https://www.iiitb.ac.in/)
 
-![](../.gitbook/assets/iiitb-logo.png)
+<div align="center"><figure><img src="../.gitbook/assets/community-contributor-iiitb.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
 IIIT Bangalore has been home to MOSIP since its inception in 2018 and the students of the institute have been at the forefront of the MOSIP’s community-led development. The students have on an ongoing basis contributed to solving engineering problems in MOSIP for real-world applications. Their major ongoing contributions include:
 
@@ -108,7 +110,7 @@ The following workflows were developed under this project:
 
 ## [Protean](https://www.proteantech.in/)
 
-<div align="left"><figure><img src="../.gitbook/assets/Protean Logo.png" alt=""><figcaption></figcaption></figure></div>
+<div align="center"><figure><img src="../.gitbook/assets/community-contributor-protean.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
 Protean partnered with MOSIP in September 2018 and since then the company has actively contributed in development and testing of various modules of MOSIP like Pre-Registration, Registration, Registration Processor, and other related modules.
 
@@ -116,14 +118,35 @@ So far, Protean has contributed approximately 1905 person per days of developmen
 
 **About Protean**: Protean (NSDL e-Governance) offers digital ecosystem, curated to cater to billions. With over 25+ years providing unparalleled experience in creating population scale e-governance solutions, the company has empowered billions of lives across the country. Protean is building a digitised ecosystem for 1.4 billion people transforming citizen services for a better future.
 
+## [Sunbird](https://sunbird.org/)
 
-
-## [Sunird](https://sunbird.org/)
-
-<figure><img src="../.gitbook/assets/sunbird-logo-new.png" alt=""><figcaption></figcaption></figure>
-
-
+<div align="center"><figure><img src="../.gitbook/assets/community-contributor-sunbird.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
 The Sunbird community has developed 20+ digital solutions (called “building blocks”) which can be used individually or combined to create larger and more complex solutions. One of the building blocks, Sunbird RC has been used in the creation of Inji - a digital credentialing stack. The Sunbird RC team has actively led the development and contribution of a few components within Inji, such as Inji Certify, Inji Verify, and Inji Web.
 
 **About Sunbird**: Sunbird is an open-source collective, seeded by the EkStep Foundation.
+
+## [HireKarma](https://hirekarma.in)
+
+<div align="center"><figure><img src="../.gitbook/assets/community-contributor-hirekarma.png" alt="" width="375"><figcaption></figcaption></figure></div>
+
+The team at HireKarma has actively contributed to the community by developing multiple test automation suites for the MOSIP ID platform as well as the eSignet and Inji product lines.
+
+**About HireKarma**: HireKarma is an India based software company that delivers innovative technology solutions to enterprises, educational institutions and government organizations.
+
+## [Ooru Digital](https://ooru.io/)
+
+<div align="center"><figure><img src="../.gitbook/assets/community-contributor-ooru.png" alt="" width="375"><figcaption></figcaption></figure></div>
+
+Ooru Digital has collaborated with MOSIP since 2024 and has been working closely towards strengthening the **Inji ecosystem.** The contributions are focussed on code contributions and feature testing.
+
+**About Ooru**: Ooru Digital Private Limited is a product based technology company dedicated to developing innovative and interoperable digital solutions across multiple sectors. With a strong commitment to Digital Public Goods (DPGs), Ooru aims to create impactful products that drive social transformation and sustainable growth.
+
+
+## [C4GT](https://codeforgovtech.in/)
+
+<div align="center"><figure><img src="../.gitbook/assets/community-contributor-c4gt.png" alt="" width="375"><figcaption></figcaption></figure></div>
+
+C4GT began collaborating with MOSIP in February 2025 and has since worked closely to strengthen the **Inji ecosystem**. C4GT contributed with code, feature improvements, and thorough testing, helping to drive innovation and also helping Inji's continued surge towards becoming a fully interoperable and open standards based digital credentialing stack.
+
+**About C4GT**: C4GT enables development and long term maintenance of open-source products (DPGs and beyond), driving population-scale social impact by creating pathways and an ecosystem for young talent to contribute to these products through an active community. Through various efforts, it aims to encourage ongoing contributions and strengthen collaboration between DPG/DPI builders, adopters, and contributors (students or working professionals). The initiative works towards facilitating long-term collaboration and innovation within the fast evolving DPGs/DPI & Tech for Good ecosystem, enhancing the efficiency and quality of contributions, and aligning the incentives for both organizations and contributors. C4GT connects organizations to a network of more than 33,000 contributors, enabling them to engage with and leverage this community to drive high-quality contributions.

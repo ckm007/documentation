@@ -1,0 +1,127 @@
+{
+	"sample": {
+		"segments": [
+			{
+				"version": {
+					"major": 1,
+					"minor": 1
+				},
+				"cbeffversion": {
+					"major": 1,
+					"minor": 1
+				},
+				"birInfo": {
+					"integrity": false
+				},
+				"bdbInfo": {
+					"index": "1964589a-8c67-4fa3-8f81-ccc5d9863ee9",
+					"format": {
+						"organization": "Mosip",
+						"type": "9"
+					},
+					"creationDate": {
+						"date": {
+							"year": 2025,
+							"month": 5,
+							"day": 7
+						},
+						"time": {
+							"hour": 12,
+							"minute": 13,
+							"second": 41,
+							"nano": 831325700
+						}
+					},
+					"type": [
+						"IRIS"
+					],
+					"subtype": [
+						"Left"
+					],
+					"level": "RAW",
+					"purpose": "ENROLL",
+					"quality": {
+						"algorithm": {
+							"organization": "HMAC",
+							"type": "SHA-256"
+						},
+						"score": 100
+					}
+				},
+				"bdb": [], //Sample data for the BDB field
+				"sb": [], //Sample data for the SB field
+				"others": {
+					"SPEC_VERSION": "0.9.5",
+					"RETRIES": "1",
+					"FORCE_CAPTURED": "false",
+					"EXCEPTION": "false",
+					"PAYLOAD": "{\n    \"digitalId\": \"ewogICAgImFsZyI6ICJSUzI1NiIsCiAgICAidHlwIjogIkpXVCIsCiAgICAieDVjIjogWwogICAgICAgICJNSUlEZERDQ0FseWdBd0lCQWdJRU1vWWRPekFOQmdrcWhraUc5dzBCQVFzRkFEQmtNUXN3Q1FZRFZRUUdFd0pWVXpFUk1BOEdBMVVFQ0F3SVZtbHlaMmx1YVdFeEVEQU9CZ05WQkFjTUIwWmhhWEptWVhneEV6QVJCZ05WQkFvTUNrbHlhVlJsWTJoSmJtTXhHekFaQmdOVkJBTU1Fa2x5YVZSbFkyaEpibU1nVTNSaFoybHVaekFlRncweU5UQTFNRGN4TVRFNU16WmFGdzB5TlRBMk1EWXhNVEU1TXpaYU1GQXhDekFKQmdOVkJBWVRBbFZUTVJNd0VRWURWUVFMRXdwTllXNWhaMlZ0Wlc1ME1STXdFUVlEVlFRS0V3cEpjbWxVWldOb1NXNWpNUmN3RlFZRFZRUURFdzVKY21sVVpXTm9JRVJsZG1salpUQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQUtkQ1R5Mm9PTm5oWEZEOGl5Y3ZxVkF4dnY2MDJ6SW1mUFJUdzVpTWxTZDZDODlCOEI4SjVVVjA2d1JEVk9hOWN4TzFvcGQ4TktHdEtMdTlRV1dCazRTRGRjQTAxV2xZZjA4bURNVFlvOVVDOG8rNzk0azdKK2RuUDZBR3pTOEhrTkxGQW5vTklpUkpSeTVGR0pjRlFJMUtpVExqRHJKbTRzU3NoeERFZXZpVmt5NWtoNkRSYjMwbUJuakZ5TnBpMHN2ZHFpSUVvZDc3NXFxZEdLVUxNOUp3ay9FamwvVGxLZ29YL3dQMmFLeEJqdjcydWhtL3F5dGp0SkhiMkFSdndjeG9VMUNMVUk4czRsNUVVL0lKYzRsSW1oejc3QUZHS0NUTzg5YW1qYlZPbFZ6SnF0UHVCZUhsTnBaSjVxTnRuOFNzSjlSK3RINmdoUVpORk53VThZOENBd0VBQWFOQ01FQXdIUVlEVlIwT0JCWUVGTi93RzExNkFLOURlb0pSU0pSYTE4TjBmRTE3TUI4R0ExVWRJd1FZTUJhQUZDRU5pcE1NNjZkVHFSVXJBNHVXbG9udnlCUk9NQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUJwVnVpS2YydG94TzBsTU1FNVNMYWhFcGxKQlpNU2kzNHdMcUZKZi92NWtsVkNMaHl0ZDBZa2dRVlB6dytXR0VaaWxIeFkzYkFjZTZDeVQzYjBQZzZFbTJKYjZmMmxwK0ttRUdkOVcrblByYVF2L0MrOFlwV3MrWDJkSm5WTGhsOHpDcWxPV09YQ3JwM1VFZTU5NktyZkxJbFRLUWJBZy9kZ3hPQy9NYzZxTTgvZWpzTFFlaytrdkwvWmVHMjJiSFlPcUFBc3ZTL1RlZ3FOa2E4d2xIYWtOVHNDMWw5aWppeUdUWVlSRytIMStlN3hvUzc2T3paZXFlajhpc1orNk9kZGV2NEs4eTBIaE8xeE1GMUhYUGZhUFdKak5hL0lxY1NTY1lpaWZnMGVobENrNVdDYVNtUlo1R0RhWDF0S3dKbUtydWVjUmFxOFgrRXdWaEgwc1dORiIKICAgIF0KfQ.ewogICAgInNlcmlhbE5vIjogIkRGMDA1MjAwMDAxOTg2OUEiLAogICAgIm1ha2UiOiAiSXJpU2hpZWxkIiwKICAgICJtb2RlbCI6ICJCSzIxMjFVIiwKICAgICJ0eXBlIjogIklyaXMiLAogICAgImRldmljZVN1YlR5cGUiOiAiRG91YmxlIiwKICAgICJkZXZpY2VQcm92aWRlciI6ICJJcmlUZWNoIiwKICAgICJkZXZpY2VQcm92aWRlcklkIjogIklyaVRlY2giLAogICAgImRhdGVUaW1lIjogIjIwMjUtMDUtMDdUMTI6MTI6MzFaIgp9.n7KnKGjO0vNMyhuXBGMl_z-iarKadc1i0_auV7s7ehQY31TLAkKPmFEi8zEJlDh4f9KB-L7HescoYIM_MdEYwCpInema_K5bhpY_3QSj_5sKQmTnQSYIRAEp8twNblrDJYxaK6dY83DzOZyJV-mif7rWw4IGgA7OMH1qDLYrQ1eoFraSb2_YS9b0N_tHcZbkr-Q_q-ZzqdBylIpUuh3KuIMPzcgwFwRwn8yIrtONj-fg-wo03E5wfpNRmOiLxa5qdLp_5ZzG2MDfRtsSYLoh2-E-Ms_H50C6tLVNMB8FBJhVx0RLNXMI_M4a6p_EGmfUUNAKMsOI1XNZ8VJAv9H5YQ\",\n    \"deviceCode\": \"DF0052000019869A\",\n    \"deviceServiceVersion\": \"0.9.5\",\n    \"bioType\": \"Iris\",\n    \"bioSubType\": \"Left\",\n    \"purpose\": \"Registration\",\n    \"env\": \"Staging\",\n    \"bioValue\": \"<bioValue>\",\n    \"transactionId\": \"0ad321b6-18e4-4e0e-9b7a-c33a00e443da\",\n    \"timestamp\": \"2025-05-07T12:12:30Z\",\n    \"requestedScore\": \"80\",\n    \"qualityScore\": \"100\"\n}",
+					"SDK_SCORE": "100.0"
+				}
+			},
+			{
+				"version": {
+					"major": 1,
+					"minor": 1
+				},
+				"cbeffversion": {
+					"major": 1,
+					"minor": 1
+				},
+				"birInfo": {
+					"integrity": false
+				},
+				"bdbInfo": {
+					"index": "9f9b9c04-99f2-4620-bbed-e2463e1678ca",
+					"format": {
+						"organization": "Mosip",
+						"type": "9"
+					},
+					"creationDate": {
+						"date": {
+							"year": 2025,
+							"month": 5,
+							"day": 7
+						},
+						"time": {
+							"hour": 12,
+							"minute": 13,
+							"second": 41,
+							"nano": 831325700
+						}
+					},
+					"type": [
+						"IRIS"
+					],
+					"subtype": [
+						"Right"
+					],
+					"level": "RAW",
+					"purpose": "ENROLL",
+					"quality": {
+						"algorithm": {
+							"organization": "HMAC",
+							"type": "SHA-256"
+						},
+						"score": 0
+					}
+				},
+				"others": {
+					"SPEC_VERSION": "",
+					"RETRIES": "0",
+					"FORCE_CAPTURED": "false",
+					"EXCEPTION": "true",
+					"PAYLOAD": "",
+					"SDK_SCORE": "0.0"
+				}
+			}
+		],
+		"others": {}
+	},
+	"modalitiesToExtract": [
+		"IRIS"
+	],
+	"flags": {
+		"iris.format": "Iris"
+	}
+}

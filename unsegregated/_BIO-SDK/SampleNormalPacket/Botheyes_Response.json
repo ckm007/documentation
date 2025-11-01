@@ -1,0 +1,155 @@
+{
+	"version": "0.9",
+	"responsetime": "2025-05-07T13:28:58.379Z",
+	"response": {
+		"statusCode": 200,
+		"statusMessage": "OK",
+		"response": {
+			"version": null,
+			"cbeffversion": null,
+			"birInfo": null,
+			"segments": [
+				{
+					"version": {
+						"major": 1,
+						"minor": 1
+					},
+					"cbeffversion": {
+						"major": 1,
+						"minor": 1
+					},
+					"birInfo": {
+						"creator": null,
+						"index": null,
+						"payload": null,
+						"integrity": false,
+						"creationDate": null,
+						"notValidBefore": null,
+						"notValidAfter": null
+					},
+					"bdbInfo": {
+						"challengeResponse": null,
+						"index": "d118f98b-1556-495b-9678-bd567bf3062e",
+						"format": {
+							"organization": "Mosip",
+							"type": "9"
+						},
+						"encryption": null,
+						"creationDate": {
+							"date": {
+								"year": 2025,
+								"month": 5,
+								"day": 7
+							},
+							"time": {
+								"hour": 11,
+								"minute": 28,
+								"second": 19,
+								"nano": 371670900
+							}
+						},
+						"notValidBefore": null,
+						"notValidAfter": null,
+						"type": [
+							"IRIS"
+						],
+						"subtype": [
+							"Left"
+						],
+						"level": "PROCESSED",
+						"product": null,
+						"captureDevice": null,
+						"featureExtractionAlgorithm": null,
+						"comparisonAlgorithm": null,
+						"compressionAlgorithm": null,
+						"purpose": "VERIFY",
+						"quality": {
+							"algorithm": {
+								"organization": "HMAC",
+								"type": "SHA-256"
+							},
+							"score": 100,
+							"qualityCalculationFailed": null
+						}
+					},
+					"bdb": [], // Sample data for Left Iris
+					"sb": null,
+					"birs": null,
+					"sbInfo": null,
+					"others": {}
+				},
+				{
+					"version": {
+						"major": 1,
+						"minor": 1
+					},
+					"cbeffversion": {
+						"major": 1,
+						"minor": 1
+					},
+					"birInfo": {
+						"creator": null,
+						"index": null,
+						"payload": null,
+						"integrity": false,
+						"creationDate": null,
+						"notValidBefore": null,
+						"notValidAfter": null
+					},
+					"bdbInfo": {
+						"challengeResponse": null,
+						"index": "34fdeea8-3376-498a-a7ba-e3c4a206b78d",
+						"format": {
+							"organization": "Mosip",
+							"type": "9"
+						},
+						"encryption": null,
+						"creationDate": {
+							"date": {
+								"year": 2025,
+								"month": 5,
+								"day": 7
+							},
+							"time": {
+								"hour": 11,
+								"minute": 28,
+								"second": 19,
+								"nano": 371670900
+							}
+						},
+						"notValidBefore": null,
+						"notValidAfter": null,
+						"type": [
+							"IRIS"
+						],
+						"subtype": [
+							"Right"
+						],
+						"level": "PROCESSED",
+						"product": null,
+						"captureDevice": null,
+						"featureExtractionAlgorithm": null,
+						"comparisonAlgorithm": null,
+						"compressionAlgorithm": null,
+						"purpose": "VERIFY",
+						"quality": {
+							"algorithm": {
+								"organization": "HMAC",
+								"type": "SHA-256"
+							},
+							"score": 100,
+							"qualityCalculationFailed": null
+						}
+					},
+					"bdb": [], // Sample data for Right Iris
+					"sb": null,
+					"birs": null,
+					"sbInfo": null,
+					"others": {}
+				}
+			],
+			"others": {}
+		}
+	},
+	"errors": []
+}

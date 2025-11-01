@@ -1,0 +1,125 @@
+{
+	"sample": {
+		"segments": [
+			{
+				"version": {
+					"major": 1,
+					"minor": 1
+				},
+				"cbeffversion": {
+					"major": 1,
+					"minor": 1
+				},
+				"birInfo": {
+					"integrity": false
+				},
+				"bdbInfo": {
+					"index": "aa597540-0866-40fd-a303-6ea82ccb9ca0",
+					"format": {
+						"organization": "Mosip",
+						"type": "9"
+					},
+					"creationDate": {
+						"date": {
+							"year": 2025,
+							"month": 5,
+							"day": 7
+						},
+						"time": {
+							"hour": 11,
+							"minute": 25,
+							"second": 18,
+							"nano": 450031100
+						}
+					},
+					"type": [
+						"IRIS"
+					],
+					"subtype": [
+						"Left"
+					],
+					"level": "RAW",
+					"purpose": "ENROLL",
+					"quality": {
+						"algorithm": {
+							"organization": "HMAC",
+							"type": "SHA-256"
+						},
+						"score": 0
+					}
+				},
+				"others": {
+					"SPEC_VERSION": "",
+					"RETRIES": "0",
+					"FORCE_CAPTURED": "false",
+					"EXCEPTION": "true",
+					"PAYLOAD": "",
+					"SDK_SCORE": "0.0"
+				}
+			},
+			{
+				"version": {
+					"major": 1,
+					"minor": 1
+				},
+				"cbeffversion": {
+					"major": 1,
+					"minor": 1
+				},
+				"birInfo": {
+					"integrity": false
+				},
+				"bdbInfo": {
+					"index": "043518b0-2a13-4702-9327-4060b532d5ee",
+					"format": {
+						"organization": "Mosip",
+						"type": "9"
+					},
+					"creationDate": {
+						"date": {
+							"year": 2025,
+							"month": 5,
+							"day": 7
+						},
+						"time": {
+							"hour": 11,
+							"minute": 25,
+							"second": 18,
+							"nano": 450031100
+						}
+					},
+					"type": [
+						"IRIS"
+					],
+					"subtype": [
+						"Right"
+					],
+					"level": "RAW",
+					"purpose": "ENROLL",
+					"quality": {
+						"algorithm": {
+							"organization": "HMAC",
+							"type": "SHA-256"
+						},
+						"score": 0
+					}
+				},
+				"others": {
+					"SPEC_VERSION": "",
+					"RETRIES": "0",
+					"FORCE_CAPTURED": "false",
+					"EXCEPTION": "true",
+					"PAYLOAD": "",
+					"SDK_SCORE": "0.0"
+				}
+			}
+		],
+		"others": {}
+	},
+	"modalitiesToExtract": [
+		"IRIS"
+	],
+	"flags": {
+		"iris.format": "Iris"
+	}
+}

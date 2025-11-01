@@ -2,7 +2,8 @@
 
 ## Overview
 
-MOSIP is a product of the combined efforts of multiple stakeholders. Contributions from the community form the backbone of MOSIP and drive its growth and stability. The contributions have come in multiple ways, ranging from direct code contributions, review of design and architecture, bug fixing, and support for technology evaluation. In this section the MOSIP team would like to acknowledge the contributions of organisations and groups who have been instrumental in driving the project forward.
+MOSIP is a product of the combined efforts of multiple stakeholders. Contributions from the community form the backbone of MOSIP and drive its growth and stability. The contributions have come in multiple ways, ranging from direct code contributions, review of design and architecture, bug fixing, and support for technology evaluation. 
+In this section the MOSIP team would like to acknowledge the contributions of organisations and groups who have been instrumental in driving the project forward and advancing the MOSIP Identity Platform, as well as Inji and eSignet.
 
 ## [LTIMindtree Ltd](https://www.mindtree.com/)
 

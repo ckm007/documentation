@@ -16,7 +16,10 @@ This guide has been created to offer a step-by-step overview of the fundamental 
 
 Before starting with the Collab environment, please ensure you have the following prerequisites in place:
 
-* **UIN Credential (Unique Identification Number)** - Issuance of [UIN](https://docs.mosip.io/1.2.0/id-lifecycle-management/identifiers#uin) as a demo credential will allow you to explore MOSIP's capabilities and experience seamless identity management firsthand. Provide your details in this UIN generation [form](https://docs.google.com/forms/d/e/1FAIpQLSc2I0CQqlYRIrEmcJ3J3tKlYOVNcYNj88YZe4MMwU2RZTrjOA/viewform), and we'll generate demo credentials that will enable you to navigate through different modules.
+* **UIN Credential (Unique Identification Number)** - Issuance of [UIN](https://docs.mosip.io/1.2.0/id-lifecycle-management/identifiers#uin) as a demo credential will allow you to explore MOSIP's capabilities and experience seamless identity management firsthand. 
+* Now you can self generate your own UIN Credential using the [Collab environment](https://collab.mosip.net/).
+    * Click on the **Get UIN** button located at the top-right corner of the page. This will open the [Self Registration Form](https://self-register.collab.mosip.net/), Alternatively, you can simply click on this [link](https://self-register.collab.mosip.net/) to self register. You need to duly fill the self registration form.
+    * On successful registration the UIN is sent to you over the email you used for registration, For more details you follow the [Generating Demo Credentials Guide](https://docs.mosip.io/1.2.0/general/collab-getting-started-guide/generating-demo-credentials).
 * **MOCK SMPT** - A mock SMTP server is a simulated email server used for testing and development purposes. In MOSIP, it is installed as part of the default installation and is utilized to mimic the behavior of a real SMTP server, allowing developers to test email functionality and interactions without sending actual emails. To setup a mock SMTP server for the message gateway during V3 installation, click [here](https://docs.mosip.io/1.2.0/deploymentnew/v3-installation/mosip-external-dependencies#msg-gateway).
 
 **Let’s Get Started!**

@@ -1,0 +1,142 @@
+{
+	"version": "0.9",
+	"responsetime": "2025-05-07T13:48:27.596Z",
+	"response": {
+		"statusCode": 200,
+		"statusMessage": "OK",
+		"response": {
+			"version": null,
+			"cbeffversion": null,
+			"birInfo": null,
+			"segments": [
+				{
+					"version": {
+						"major": 1,
+						"minor": 1
+					},
+					"cbeffversion": {
+						"major": 1,
+						"minor": 1
+					},
+					"birInfo": {
+						"creator": null,
+						"index": null,
+						"payload": null,
+						"integrity": false,
+						"creationDate": null,
+						"notValidBefore": null,
+						"notValidAfter": null
+					},
+					"bdbInfo": {
+						"challengeResponse": null,
+						"index": "1964589a-8c67-4fa3-8f81-ccc5d9863ee9",
+						"format": {
+							"organization": "Mosip",
+							"type": "9"
+						},
+						"encryption": null,
+						"creationDate": {
+							"date": {
+								"year": 2025,
+								"month": 5,
+								"day": 7
+							},
+							"time": {
+								"hour": 12,
+								"minute": 13,
+								"second": 41,
+								"nano": 831325700
+							}
+						},
+						"notValidBefore": null,
+						"notValidAfter": null,
+						"type": [
+							"IRIS"
+						],
+						"subtype": [
+							"Left"
+						],
+						"level": "PROCESSED",
+						"product": null,
+						"captureDevice": null,
+						"featureExtractionAlgorithm": null,
+						"comparisonAlgorithm": null,
+						"compressionAlgorithm": null,
+						"purpose": "VERIFY",
+						"quality": {
+							"algorithm": {
+								"organization": "HMAC",
+								"type": "SHA-256"
+							},
+							"score": 100,
+							"qualityCalculationFailed": null
+						}
+					},
+					"bdb": [], // Sample data for bdb
+					"sb": null,
+					"birs": null,
+					"sbInfo": null,
+					"others": {}
+				}
+				{
+				"version": {
+					"major": 1,
+					"minor": 1
+				},
+				"cbeffversion": {
+					"major": 1,
+					"minor": 1
+				},
+				"birInfo": {
+					"integrity": false
+				},
+				"bdbInfo": {
+					"index": "9f9b9c04-99f2-4620-bbed-e2463e1678ca",
+					"format": {
+						"organization": "Mosip",
+						"type": "9"
+					},
+					"creationDate": {
+						"date": {
+							"year": 2025,
+							"month": 5,
+							"day": 7
+						},
+						"time": {
+							"hour": 12,
+							"minute": 13,
+							"second": 41,
+							"nano": 831325700
+						}
+					},
+					"type": [
+						"IRIS"
+					],
+					"subtype": [
+						"Right"
+					],
+					"level": "RAW",
+					"purpose": "ENROLL",
+					"quality": {
+						"algorithm": {
+							"organization": "HMAC",
+							"type": "SHA-256"
+						},
+						"score": 0
+					}
+				},
+				"others": {
+					"SPEC_VERSION": "",
+					"RETRIES": "0",
+					"FORCE_CAPTURED": "false",
+					"EXCEPTION": "true",
+					"PAYLOAD": "",
+					"SDK_SCORE": "0.0"
+				}
+			}
+			],
+			"others": {}
+		}
+	},
+	"errors": []
+}

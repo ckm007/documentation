@@ -1,0 +1,84 @@
+{
+	"version": "0.9",
+	"responsetime": "2025-05-07T13:36:33.796Z",
+	"response": {
+		"statusCode": 200,
+		"statusMessage": "OK",
+		"response": {
+			"version": null,
+			"cbeffversion": null,
+			"birInfo": null,
+			"segments": [
+				{
+					"version": {
+						"major": 1,
+						"minor": 1
+					},
+					"cbeffversion": {
+						"major": 1,
+						"minor": 1
+					},
+					"birInfo": {
+						"creator": null,
+						"index": null,
+						"payload": null,
+						"integrity": false,
+						"creationDate": null,
+						"notValidBefore": null,
+						"notValidAfter": null
+					},
+					"bdbInfo": {
+						"challengeResponse": null,
+						"index": "b71dc768-0e49-4ea1-a71f-3d15637a87b2",
+						"format": {
+							"organization": "Mosip",
+							"type": "8"
+						},
+						"encryption": null,
+						"creationDate": {
+							"date": {
+								"year": 2025,
+								"month": 5,
+								"day": 7
+							},
+							"time": {
+								"hour": 11,
+								"minute": 38,
+								"second": 11,
+								"nano": 683644600
+							}
+						},
+						"notValidBefore": null,
+						"notValidAfter": null,
+						"type": [
+							"FACE"
+						],
+						"subtype": [],
+						"level": "RAW",
+						"product": null,
+						"captureDevice": null,
+						"featureExtractionAlgorithm": null,
+						"comparisonAlgorithm": null,
+						"compressionAlgorithm": null,
+						"purpose": "ENROLL",
+						"quality": {
+							"algorithm": {
+								"organization": "HMAC",
+								"type": "SHA-256"
+							},
+							"score": 66,
+							"qualityCalculationFailed": null
+						}
+					},
+					"bdb": [], // Sample BDB data
+					"sb": null,
+					"birs": null,
+					"sbInfo": null,
+					"others": {}
+				}
+			],
+			"others": {}
+		}
+	},
+	"errors": []
+}

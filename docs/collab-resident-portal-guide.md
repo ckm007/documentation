@@ -18,8 +18,9 @@ Please note that for developers setting up Resident Portal locally, refer to the
 * To get your UIN credentials for Collab environment follow the below steps:
 
   * The provision of a UIN (Unique Identification Number) as a demo credential will enable you to have a firsthand experience of the Resident Portal's capabilities and explore its various features.
-
-  * Please complete the [form](https://docs.google.com/forms/d/e/1FAIpQLSc2I0CQqlYRIrEmcJ3J3tKlYOVNcYNj88YZe4MMwU2RZTrjOA/viewform) provided and submit it. Once received, we will generate a demo credential for you to use in order to login to the Resident Portal.
+  * Now you can self generate your own UIN Credential using the [Collab environment](https://collab.mosip.net/).
+    * Click on the **Get UIN** button located at the top-right corner of the page. This will open the [Self Registration Form](https://self-register.collab.mosip.net/), Alternatively, you can simply click on this [link](https://self-register.collab.mosip.net/) to self register. You need to duly fill the self registration form.
+    * On successful registration the UIN is sent to you over the email you used for registration, For more details you follow the [Generating Demo Credentials Guide](https://docs.mosip.io/1.2.0/general/collab-getting-started-guide/generating-demo-credentials).
 
 **Note**: Please use 111111 as the OTP, for any OTP-based feature in the Collab environment.
 
