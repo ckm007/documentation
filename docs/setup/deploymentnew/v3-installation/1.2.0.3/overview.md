@@ -1,7 +1,7 @@
-# MOSIP 1.2.0.3 – Rapid Deployment Model
+# Rapid Deployment Model - 1.2.0.3
 
 ## Overview
-* MOSIP **v1.2.0.3** introduces a **Rapid Deployment Model** designed to accelerate infrastructure setup, configuration, and rollout while maintaining reliability, scalability, and cloud neutrality.  
+* **Rapid Deployment Model** designed to accelerate infrastructure setup, configuration, and rollout while maintaining reliability, scalability, and cloud neutrality.  
 * This model enables faster and more consistent deployments of the complete MOSIP stack through **automation-first principles**, leveraging Infrastructure as Code (IaC), containerization, and continuous delivery.  
 
 ## Key Highlights
